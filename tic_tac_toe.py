@@ -16,7 +16,6 @@ cube_image = [1,2,3,4,5,6,7,8,9]
 cube_control = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 cube_player1 = []
 cube_player2 = []
-cube_rows = [6, 12, 15, 18, 24]
 winner = 0
 
 def clear():
@@ -50,6 +49,7 @@ def select_square(player, cube_value):
                 cube_image[index] = 'X'
             else:
                 cube_image[index] = 'O'
+            break
     pass
 
 def main():
@@ -62,14 +62,14 @@ def main():
                 print(f'Player {player}')
                 cube_value = int(input('Input your square: '))  
                 for i in cube_control:
-                    select_square(player, cube_value)
-                    print_cube()
                     if(i == cube_value):
                          if player == 1:
                             cube_player1.append(cube_value)
                          else:
                              cube_player2.append(cube_value)
                          cube_control.remove(cube_value)
+                         select_square(player, cube_value)
+                         print_cube()
                          not_found = False
                          break
                     else:
@@ -84,36 +84,59 @@ def main():
 
     def check_rows():
         i = 0
-        sum_row1 = 0
-        sum_row2 = 0
-        for i in cube_player1:
-            sum_row1 = sum_row1 + i              
-        for i in cube_player2:
-            sum_row2 = sum_row2 + i 
-        i = 0
-        for i in cube_rows:
-            if i == sum_row1:
-                winner = 1
-                break
-            if i == sum_row2:
-                winner = 2
+        winner = 0
+        if cube_image[0] == 'X' and cube_image[1] == 'X' and cube_image[2] == 'X':
+            winner = 1
+        if cube_image[3] == 'X' and cube_image[4] == 'X' and cube_image[5] == 'X':
+            winner = 1
+        if cube_image[6] == 'X' and cube_image[7] == 'X' and cube_image[8] == 'X':
+            winner = 1
+        if cube_image[0] == 'O' and cube_image[1] == 'O' and cube_image[2] == 'O':
+            winner = 2
+        if cube_image[3] == 'O' and cube_image[4] == 'O' and cube_image[5] == 'O':
+            winner = 2
+        if cube_image[6] == 'O' and cube_image[7] == 'O' and cube_image[8] == 'O':
+            winner = 2
+        if cube_image[0] == 'X' and cube_image[3] == 'X' and cube_image[6] == 'X':
+            winner = 1
+        if cube_image[1] == 'X' and cube_image[4] == 'X' and cube_image[7] == 'X':
+            winner = 1
+        if cube_image[2] == 'X' and cube_image[5] == 'X' and cube_image[8] == 'X':
+            winner = 1
+        if cube_image[0] == 'O' and cube_image[3] == 'O' and cube_image[6] == 'O':
+            winner = 2
+        if cube_image[1] == 'O' and cube_image[4] == 'O' and cube_image[7] == 'O':
+            winner = 2
+        if cube_image[2] == 'O' and cube_image[5] == 'O' and cube_image[8] == 'O':
+            winner = 2
+        if cube_image[0] == 'X' and cube_image[4] == 'X' and cube_image[8] == 'X':
+            winner = 1
+        if cube_image[2] == 'X' and cube_image[4] == 'X' and cube_image[6] == 'X':
+            winner = 1
+        if cube_image[0] == 'O' and cube_image[4] == 'O' and cube_image[8] == 'O':
+            winner = 2
+        if cube_image[2] == 'O' and cube_image[4] == 'O' and cube_image[6] == 'O':
+            winner = 2
         return winner
-    i = 1
-    while i <= 3:
+        
+    games = 1
+    while games <= 9:
         player = 1
         input_cube(player)
         player = 2
         input_cube(player)
-        i += 1
-    winner = check_rows()
-    if winner != 0:
-        text = f'The winner is player {winner}'
-        text = colored(0,255,0, text) 
-        print(f'{text}')
-    else:
-        text = f'No winner'
-        text = colored(255,0,0, text)
-        print(f'{text}')
+        games += 1
+        winner = check_rows()
+        if winner != 0:
+            text = f'The winner is player {winner}'
+            text = colored(0,255,0, text) 
+            print(f'{text}')
+            break
+        else:
+            if games == 9:
+                text = f'No winner'
+                text = colored(255,0,0, text)
+                print(f'{text}')
 
 def colored(r, g, b, text):
     return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
