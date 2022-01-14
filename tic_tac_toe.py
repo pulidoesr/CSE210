@@ -118,25 +118,29 @@ def main():
         if cube_image[2] == 'O' and cube_image[4] == 'O' and cube_image[6] == 'O':
             winner = 2
         return winner
-        
-    games = 1
+
+    games = 0
     while games <= 9:
-        player = 1
-        input_cube(player)
-        player = 2
-        input_cube(player)
-        games += 1
-        winner = check_rows()
-        if winner != 0:
-            text = f'The winner is player {winner}'
-            text = colored(0,255,0, text) 
-            print(f'{text}')
-            break
-        else:
-            if games == 9:
-                text = f'No winner'
-                text = colored(255,0,0, text)
+        if games <= 9:
+            player = 1
+            input_cube(player)
+            games += 1
+            player = 2
+            if games != 9:
+                input_cube(player)
+                games += 1
+            winner = check_rows()
+            if winner != 0:
+                text = f'The winner is player {winner}'
+                text = colored(0,255,0, text) 
                 print(f'{text}')
+                break
+            else:
+                if games == 9:
+                    text = f'No winner this is a tie!'
+                    text = colored(255,0,0, text)
+                    print(f'{text}')
+                    break
 
 def colored(r, g, b, text):
     return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
