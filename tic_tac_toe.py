@@ -126,6 +126,7 @@ def main():
             input_cube(player)
             games += 1
             player = 2
+            winner = check_rows()
             if games != 9:
                 input_cube(player)
                 games += 1
