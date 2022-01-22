@@ -17,7 +17,8 @@ The project files and folders are organized as follows:
 ```
 root                    (project root folder)
 +-- hilo_group5         (source code for game)
-  +-- game              (specific classes)
+  +-- director.py       (specific class)
+  +-- hilo.py           (specific class)
   +-- __main__.py       (program entry point)
 +-- README.md           (general info)
 ```
@@ -28,4 +29,4 @@ root                    (project root folder)
 
 ## Authors
 ---
-* Matt Manley (manleym@byui.edu)
+* Group5 (pul21010m@byui.edu, ?,?,?)
