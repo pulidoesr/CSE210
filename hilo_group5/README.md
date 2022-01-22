@@ -29,4 +29,4 @@ root                    (project root folder)
 
 ## Authors
 ---
-* Group5 (pul21010m@byui.edu, ?,?,?)
+* Group5 (pul21010m@byui.edu, Carina Aguero, Rob Cox, Brianna Dayley, Anamilena Casariego)
