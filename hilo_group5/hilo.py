@@ -1,7 +1,7 @@
 import random
 
 class Hilo:
-    """A generation of a car 1 to 13.
+    """A generation of a card 1 to 13.
 
        The responsibility of Hilo is to keep track of the card selected 
    
@@ -10,10 +10,10 @@ class Hilo:
     """
 
     def __init__(self):
-        """Constructs a new instance of Die.
+        """Constructs a new instance of Card.
 
         Args:
-            self (Die): An instance of Die.
+            self (Die): An instance of Card.
         """
         self.value = 0
 
