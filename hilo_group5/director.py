@@ -1,4 +1,7 @@
+from os import system, name
 from hilo import Hilo
+
+
 
 class Director:
       """A person who directs the game. 
@@ -31,9 +34,10 @@ class Director:
             Args:
             self (Director): an instance of Director
         """
-        self.get_card()
-        self.show_card()
+        clear()
         while self.is_playing:
+            self.get_card()
+            self.show_card()
             self.get_guess()
             self.get_card()
             self.show_card()
@@ -41,8 +45,6 @@ class Director:
             self.do_updates()
             self.do_outputs()
             self.get_input()
-            self.get_card()
-            self.show_card()
       def get_card(self):
         """ Get the card first and keep the previous value """
         if not self.is_playing:
@@ -79,9 +81,8 @@ class Director:
           self.first = False
       def do_updates(self):
         """Updates the player's score.
-
-        Args:
-            self (Director): An instance of Director.
+           Args:
+           self (Director): An instance of Director.
         """
         if not self.is_playing:
            return  
@@ -93,10 +94,27 @@ class Director:
         """
         if not self.is_playing:
             return
-        print(f"Your score is: {self.total_score}\n")
+        text = f'Your score is: {self.total_score}'
+        if self.is_guess:
+           text = colored(0,2550,0, text)
+        else:
+           text = colored(255,0,0,text)
+        print(f"{text}")
+        self.is_guess = True
         self.is_playing == (self.score > 0)
       def get_input(self):
         """ Continue Playing """
         self.play_again = input('Play again (y/n): ')
-        
         self.is_playing = (self.play_again == 'y')
+        print(f' ')
+
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+        
+def colored(r, g, b, text):
+    return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
