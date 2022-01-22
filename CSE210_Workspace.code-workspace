@@ -7,13 +7,10 @@
 			"path": "dice-incomplete"
 		},
 		{
-			"path": "dice-incomplete\\dice"
-		},
-		{
-			"path": "dice-incomplete\\dice\\game"
-		},
-		{
 			"path": "dice-complete"
+		},
+		{
+			"path": "hilo_group5"
 		}
 	]
 }
