@@ -17,7 +17,11 @@
 			"path": "cse210-02"
 		},
 		{
+			"path": "cse210-02\\hilo"
+		},
+		{
 			"path": "cse210-02\\hilo\\game"
-		}
+		},
+		
 	]
 }
