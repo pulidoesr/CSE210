@@ -21,7 +21,7 @@ class Director:
             self (Director): an instance of Director.
         """
         self._puzzle = Puzzle()
-        self._parachute = Player()
+        self._player = Player()
         self._is_playing = True
         self._word = ''
         self._guess_letter = ''
@@ -51,7 +51,8 @@ class Director:
         self._guess_letter = input('Guess a letter [a-z]: ')
         self.is_found = self._puzzle.check_guess(self._guess_letter)
         if self.is_found:
-           self._is_playing = self._puzzle.show_word() 
+           self._puzzle.show_word() 
+           self._is_playing = self._puzzle.is_solved()
            
         
     def _do_updates(self):
