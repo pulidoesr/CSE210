@@ -73,3 +73,4 @@ class Puzzle:
         if self._guessword == self._word:
            self._continue = False
         return self._continue
+        
