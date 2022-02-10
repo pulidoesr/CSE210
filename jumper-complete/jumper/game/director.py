@@ -1,4 +1,3 @@
-from game.terminal_service import TerminalService
 from game.parachute import Parachute
 from game.puzzle import Puzzle
 
@@ -24,9 +23,8 @@ class Director:
         self._puzzle = Puzzle()
         self._parachute = Parachute()
         self._is_playing = True
-        self._terminal_service = TerminalService()
         self._word = ''
-        self._word_letters = []
+        self._guess_letter = ''
         
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -41,16 +39,20 @@ class Director:
 
     def _get_inputs(self):
         """Look for the random word.
-           Paint the parachute graphic
+           Paint the parachute
            Ask for the letter
 
         Args:
             self (Director): An instance of Director.
         """
-        self._word = self._puzzle.get_word()
-        self._word_letters = self._puzzle.get_letters(self._word)
-        print(f'{self._word_letters}')
-        self._is_playing = False
+        self._word = self._puzzle.get_puzzle()
+        print(f'{self._word}')
+        """ Paint the parachute """
+        self._guess_letter = input('Guess a letter [a-z]: ')
+        self.is_found = self._puzzle.check_guess(self._guess_letter)
+        if self.is_found:
+           self._is_playing = self._puzzle.show_word() 
+           
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.

@@ -1,4 +1,6 @@
+from ctypes.wintypes import WORD
 import random
+from game.terminal_service import TerminalService
 
 class Puzzle:
     """The player looking for the letters . 
@@ -13,26 +15,60 @@ class Puzzle:
 
     def __init__(self):
         """Constructs a new Puzzle.
-
         Args:
             self (Puzzle): An instance of Puzzle.
         """
-        self._location = random.randint(0, 9)
-        self.word_list = ['world', 'cars', 'window', 'door', 'cats', 'dogs', 'house', 'tower', 'court', 'palace']
-        self.word = ''
-        self.word_letters = []
-    def get_word(self):
+        self._selection = random.randint(0, 9)
+        self._list_word = ['world', 'cars', 'window', 'door', 'cats', 'dogs', 'house', 'tower', 'court', 'palace']
+        self._word = ''
+        self._letters_word = []
+        self._guess_word = []
+        self._terminal_service = TerminalService()
+        self._guessword = ''
+        self._continue = True
+    def get_puzzle(self):
         """ Gets the word from list"""
-        self.word = self.word_list[self._location]
-        return self.word
+        if self._word == '':
+            self._word = self._list_word[self._selection]
+            i = 0 
+            while i < len(self._word):
+                self._letters_word.append(self._word[i:i+1])
+                self._guess_word.append("_ ")
+                i += 1
+        return self._word
         
-    def get_letters(self, word):
+    def check_guess(self, letter):
         """Gets the letters of the word.
-                Returns:
-            list: The list of letters,
+           Keep track of the letters found on their position
+           Returns:
+                   True or False (letter found)
         """
+        self._is_found = False
         i = 0
-        while i < len(word):
-            self.word_letters.append(word[i:i+1]) 
+        while i < len(self._word):
+            try:
+                index = self._letters_word.index(letter)
+                if index >= 0:
+                    self._guess_word[index] = letter
+                    self._is_found = True
+                    break
+            except:
+                self._is_found = False
+                self._terminal_service.write_text(self._guessword)
+                break
             i += 1
-        return self.word_letters
+        return self._is_found
+    def show_word(self):
+        """ Concatenate letters to show it
+            Check if the word has been discovered
+            Stop game if the word has been discovered 
+         """
+        i = 0
+        self._guessword = ''
+        while i < len(self._guess_word):
+            self._guessword = self._guessword + self._guess_word[i]
+            i += 1
+        self._terminal_service.write_text(self._guessword)   
+        if self._guessword == self._word:
+           self._continue = False
+        return self._continue

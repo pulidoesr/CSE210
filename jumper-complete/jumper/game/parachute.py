@@ -1,23 +1,22 @@
 import random
 
 class Parachute:
-    """The person hiding from the Seeker. 
+    """The person managing the parachute. 
     
-    The responsibility of Hider is to keep track of its location and distance from the seeker. 
+    The responsibility of Parachute is to keep track of the parachute based on the player input. 
     
     Attributes:
-        _location (int): The location of the hider (1-1000).
-        _distance (List[int]): The distance from the seeker.
+        _lines of parachute (List): The lines of the parachute (eight).
+        _remaining lines of parachute (List): The remaining lines of the parachute 
     """
 
     def __init__(self):
-        """Constructs a new Hider.
+        """Constructs a new parachute.
 
         Args:
-            self (Hider): An instance of Hider.
+            self (Parachute): An instance of Parachute.
         """
-        self._location = random.randint(1, 1000)
-        self._distance = [0, 0] # start with two so get_hint always works
+        self.lines = ['\ ', '/', '___',  ]
     
     def get_hint(self):
         """Gets a hint for the seeker.
