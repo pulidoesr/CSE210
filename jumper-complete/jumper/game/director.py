@@ -1,4 +1,4 @@
-from game.parachute import Parachute
+from game.player import Player
 from game.puzzle import Puzzle
 
 
@@ -21,7 +21,7 @@ class Director:
             self (Director): an instance of Director.
         """
         self._puzzle = Puzzle()
-        self._parachute = Parachute()
+        self._parachute = Player()
         self._is_playing = True
         self._word = ''
         self._guess_letter = ''

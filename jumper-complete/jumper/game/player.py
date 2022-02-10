@@ -1,6 +1,6 @@
 import random
 
-class Parachute:
+class Player:
     """The person managing the parachute. 
     
     The responsibility of Parachute is to keep track of the parachute based on the player input. 

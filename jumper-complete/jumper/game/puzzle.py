@@ -1,4 +1,3 @@
-from ctypes.wintypes import WORD
 import random
 from game.terminal_service import TerminalService
 
@@ -27,7 +26,10 @@ class Puzzle:
         self._guessword = ''
         self._continue = True
     def get_puzzle(self):
-        """ Gets the word from list"""
+        """ Gets the random word from list
+            Build the list to check the letters
+            Build the list to track the guesses
+        """
         if self._word == '':
             self._word = self._list_word[self._selection]
             i = 0 
@@ -38,26 +40,24 @@ class Puzzle:
         return self._word
         
     def check_guess(self, letter):
-        """Gets the letters of the word.
-           Keep track of the letters found on their position
+        """Use the letters of the word in the list
+           Keep track of the letters found and their position
+           Review if there is a repeated letter 
+           Update the letter in the right position of the word
            Returns:
                    True or False (letter found)
         """
         self._is_found = False
         i = 0
         while i < len(self._word):
-            try:
-                index = self._letters_word.index(letter)
-                if index >= 0:
-                    self._guess_word[index] = letter
-                    self._is_found = True
-                    break
-            except:
-                self._is_found = False
-                self._terminal_service.write_text(self._guessword)
-                break
+            if self._letters_word[i] == letter:
+                if self._guess_word[i] == '_ ':
+                   self._guess_word[i] = letter
+                   self._is_found = True
+                   break
             i += 1
         return self._is_found
+
     def show_word(self):
         """ Concatenate letters to show it
             Check if the word has been discovered
