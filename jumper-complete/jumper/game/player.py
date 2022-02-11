@@ -19,7 +19,6 @@ class Player:
         """
         """             0    1    2   3     4    5      6   7   8   9   10  11  12  13""" 
         self._lines = ['\ ','\ ','/','___','\ ','───', '/','/','☺','/','|','\ ','/','\ ']
-        self._clines = []
         self._errors = 0
         self._terminal_service = TerminalService()
     

@@ -8,9 +8,9 @@ class Director:
     The responsibility of a Director is to control the sequence of play.
 
     Attributes:
-        hider (Hider): The game's hider.
+        Puzzle: The game's guess word.
         is_playing (boolean): Whether or not to keep playing.
-        seeker (Seeker): The game's seeker.
+        player (Player): The player that guess the letter.
         terminal_service: For getting and displaying information on the terminal.
     """
 
@@ -35,7 +35,6 @@ class Director:
         self._word = self._puzzle.get_puzzle()
         self._player.print_parachute()
         self._puzzle.blank_line()
-        print(f'{self._word}')
         while self._is_playing:
             self._get_inputs()
             self._do_updates()
@@ -43,8 +42,7 @@ class Director:
 
     def _get_inputs(self):
         """Look for the random word.
-           Paint the parachute
-           Ask for the letter
+           Ask for the guess letter
 
         Args:
             self (Director): An instance of Director.
@@ -53,8 +51,9 @@ class Director:
         self._guess_letter = input('Guess a letter [a-z]: ')
          
     def _do_updates(self):
-        """Keeps watch on where the seeker is moving.
-
+        """Check the guess letter
+           Update the parachute
+           Find if the player can continue the game 8 errors or word guessed
         Args:
             self (Director): An instance of Director.
         """
