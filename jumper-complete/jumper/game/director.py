@@ -32,6 +32,10 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
+        self._word = self._puzzle.get_puzzle()
+        self._player.print_parachute()
+        self._puzzle.blank_line()
+        print(f'{self._word}')
         while self._is_playing:
             self._get_inputs()
             self._do_updates()
@@ -45,23 +49,21 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        self._word = self._puzzle.get_puzzle()
-        print(f'{self._word}')
-        """ Paint the parachute """
-        self._guess_letter = input('Guess a letter [a-z]: ')
-        self.is_found = self._puzzle.check_guess(self._guess_letter)
-        if self.is_found:
-           self._puzzle.show_word() 
-           self._is_playing = self._puzzle.is_solved()
-           
         
+        self._guess_letter = input('Guess a letter [a-z]: ')
+         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
 
         Args:
             self (Director): An instance of Director.
         """
-        
+        self.is_found = self._puzzle.check_guess(self._guess_letter)
+        self._puzzle.show_word()
+        if self.is_found: 
+           self._is_playing = self._puzzle.is_solved()
+        else:
+           self._is_playing = self._player.update_parachute(self.is_found)
         
     def _do_outputs(self):
         """Provides a hint for the seeker to use.
@@ -69,4 +71,5 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+        self._player.print_parachute()
         

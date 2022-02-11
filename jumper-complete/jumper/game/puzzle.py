@@ -73,4 +73,7 @@ class Puzzle:
         if self._guessword == self._word:
            self._continue = False
         return self._continue
+    def blank_line(self):
+        a_string = "_" * len(self._word)
+        self._terminal_service.write_text(a_string)
 

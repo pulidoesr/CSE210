@@ -1,4 +1,5 @@
 import random
+from game.terminal_service import TerminalService
 
 class Player:
     """The person managing the parachute. 
@@ -16,42 +17,44 @@ class Player:
         Args:
             self (Parachute): An instance of Parachute.
         """
-        self.lines = ['\ ', '/', '___',  ]
+        """             0    1    2   3     4    5      6   7   8   9   10  11  12  13""" 
+        self._lines = ['\ ','\ ','/','___','\ ','───', '/','/','☺','/','|','\ ','/','\ ']
+        self._clines = []
+        self._errors = 0
+        self._terminal_service = TerminalService()
     
-    def get_hint(self):
-        """Gets a hint for the seeker.
+    def print_parachute(self):
+        """Print parachute. """
+        tline = " " + self._lines[3]
+        self._terminal_service.write_text(tline)
+        tline = self._lines[2] + "   " + self._lines[4]
+        self._terminal_service.write_text(tline)
+        tline = " " + self._lines[5]
+        self._terminal_service.write_text(tline)
+        tline = self._lines[1] + "  " + self._lines[6]
+        self._terminal_service.write_text(tline)
+        tline = " " + self._lines[0] + self._lines[7]
+        self._terminal_service.write_text(tline)
+        tline = "  " + self._lines [8]
+        self._terminal_service.write_text(tline)
+        tline = " " + self._lines[9] + self._lines[10] + self._lines[11]
+        self._terminal_service.write_text(tline)
+        tline = " " + self._lines[12] + " " + self._lines[13]
+        self._terminal_service.write_text(tline)
+        return
 
-        Args:
-            self (Hider): An instance of Hider.
+    def update_parachute(self, found):
+        """Update the Parachute based on letter guess or not.
+           Args:
+                found or not
+           Returns:
+        """
+        is_playing = True
+        if not(found):
+           self._errors += 1
+           if self._errors <= 8:
+              self._lines[self._errors-1] = "  "
+           if self._errors == 8:
+               is_playing = False
+        return is_playing
         
-        Returns:
-            string: A hint for the seeker.
-        """
-        hint = "(-.-) Nap time."
-        if self._distance[-1] == 0:
-            hint = "(;.;) You found me!"
-        elif self._distance[-1] > self._distance[-2]:
-            hint = "(^.^) Getting colder!"
-        elif self._distance[-1] < self._distance[-2]:
-            hint = "(>.<) Getting warmer!"
-        return hint
-
-    def is_found(self):
-        """Whether or not the hider has been found.
-
-        Args:
-            self (Hider): An instance of Hider.
-            
-        Returns:
-            boolean: True if the hider was found; false if otherwise.
-        """
-        return (self._distance[-1] == 0)
-        
-    def watch_seeker(self, seeker):
-        """Watches the seeker by keeping track of how far away it is.
-
-        Args:
-            self (Hider): An instance of Hider.
-        """
-        distance = abs(self._location - seeker.get_location())
-        self._distance.append(distance)
